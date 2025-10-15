@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Packages/org.artoolkitx.artoolkitx-unity/Samples/SquareSample/SquareScene.unity
+    guid: 2de9db8029065464ab5202cac04a1878
+  - enabled: 0
+    path: Packages/org.artoolkitx.artoolkitx-unity/Samples/2DTextureSample/2DScene.unity
+    guid: 6d39e3ec99d754e5d813bf88f69c6e9e
+  - enabled: 0
+    path: Packages/org.artoolkitx.artoolkitx-unity/Samples/BarcodeSample/BarcodeScene.unity
+    guid: a22883dbab7d84ef3972bdd06b9e589d
+  - enabled: 0
+    path: Packages/org.artoolkitx.artoolkitx-unity/Samples/CubeSample/CubeScene.unity
+    guid: 91e0064a3efe34200aa60dba3775ddbf
+  - enabled: 0
+    path: Packages/org.artoolkitx.artoolkitx-unity/Samples/LegacyNFTSample/LegacyNFTScene.unity
+    guid: 5abbb77b415fb4033ad460f5774496dd
+  - enabled: 0
+    path: Packages/org.artoolkitx.artoolkitx-unity/Samples/MultimarkerSheetSample/MultimarkerSheetScene.unity
+    guid: 240fd65e106ba44b6b794b5cec7c04be
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 13c146f12e86cf540bc94186537c1b33,
+      type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: e476f10e507b31f4498873c40db893d6,
+      type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: dedc828df71112846b6f985356d98ac2,
+      type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 1a3259c1a4c318a4599fe50d83886666,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9bd84728d1c40284c9db89dffe74f2d2,
+      type: 2}
+  m_UseUCBPForAssetBundles: 0
