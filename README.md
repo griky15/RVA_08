@@ -25,7 +25,7 @@ Unity 6.2 project for Virtual and Augmented Reality Course - MEIC with **Vuforia
 1. **Install Unity 6.2** via Unity Hub.  
 2. **Get the project**  
    - Clone the repository or download the ZIP.  
-   - Open Unity Hub → Add project → select project folder.
+   - Open Unity Hub → Add project → select project folder. If prompted, select version 6.2 (abbreviated).
    - Run the project. It should appear a warning about Vuforia, click 'Continue'. Then, an error should appear, click 'Ignore'. We will tackle Vuforia abscense in step number 3.
    - Now that the project is open, a warning about deprecated packages should appear. Click 'Dismiss' or 'Dismiss forever'.
 3. **Add Vuforia**  
