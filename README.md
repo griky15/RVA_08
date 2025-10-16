@@ -1,45 +1,49 @@
-## Welcome to artoolkitX for Unity
+# RVA - Virtual and Augmented Reality
 
-### What is artoolkitX for Unity?
+Unity 6.2 project for Virtual and Augmented Reality Course - MEIC with **Vuforia** framework.
 
-artoolkitX for Unity is a software development kit (SDK) consisting of script components, plugins, and utilities that help developers implement the foundation of great augmented and mixed reality applications inside the Unity development environment. The SDK includes some examples of applications that demonstrate the capabilities of artoolkitX for Unity.
+---
 
-artoolkitX for Unity is free to use! The SDK is licensed under the GNU Lesser General Public License version 3.0, with some additional permissions, allowing for linking into both closed- and open-source software. Please read the file license to understand your rights and obligations when using artoolkitX. Example code is generally released under a more permissive disclaimer; please read the file LICENSE.txt for more information.
+## Requirements
 
-## How to use this software to develop applications
+- Unity 6.2  
+- Git (optional)  
+- Internet to download packages
 
-This repository holds the source and Unity project for development of artoolkitX for Unity. If you want to use the built package directly from this repo, you'll find that on the `upm` branch. You can use this directly from the Unity Package Manager as follows:
+---
 
-1. Open the Unity package manager.
-2. From the top-left of the package manager window, click the "+" symbol, and then from the pop-up menu, choose "Add pacakge from git repo...".
-3. In the URL field, enter: `https://github.com/artoolkitx/arunityx.git#upm`.
+## Members
 
-Please check out [the wiki documentation][documentation] for more information on how to use artoolkitX for Unity.
+- Guilherme Cruz
+- Rodrigo Pinheiro
+- Tomás Monteiro
 
-## How to contribute to the development of this software
+---
 
-After checking out this repository, you'll need to fetch the binary artoolkitX plugins. To do this, from a bash shell (e.g. Terminal on mac OS, or git-bash or Windows Subsystem for Linux Ubuntu bash shell on Windows):
+## Setup
 
-```
-cd dev
-./build.sh platforms
-```
-where `platforms` is a space-separted list of one or more of: `macos`, `windows`, `ios`, `android`, or `emscripten`. Note that to fetch the plugins for mac OS or iOS requires the command to be executed on a Mac.
+1. **Install Unity 6.2** via Unity Hub.  
+2. **Get the project**  
+   - Clone the repository or download the ZIP.  
+   - Open Unity Hub → Add project → select project folder.  
+3. **Add Vuforia**  
+   - Download Vuforia package: [link](https://drive.google.com/file/d/1wB97NFgZQPUIoY1IleKmjGoG44A81A0N/view?usp=sharing)  
+   - In Unity: `Assets → Import Package → Custom Package...` → select the downloaded file and then → click **Import All**.  
+4. **Use markers**  
+   - Project includes Sun and Earth image markers.  
+   - Print markers or use webcam to view AR.  
+5. **Play**  
+   - Activate webcam.  
+   - Press Play in Unity.  
 
-Alternately, if you wish to make modifications to the plugins, you can check out and use artoolkitX directly as a git submodule:
+---
 
-```
-cd dev
-cd artoolkitx
-git submodule init
-git submodule update
-cd ..
-./build.sh --dev platforms
-```
+## Notes
 
-If you find a bug, please note it on our [issue tracker][issue tracker], and / or, fix it yourself and submit a [pull request][pull]!
+- Vuforia package is **not in GitHub** due to file size.  
+- Install manually via Unity as described above.  
 
-[website]: http://www.artoolkitx.org
-[documentation]: https://github.com/artoolkitx/arunityx/wiki
-[issue tracker]: https://github.com/artoolkit/arunityx/issues
-[pull]: https://github.com/artoolkitx/arunityx/pulls
+---
+
+## Project Structure
+
