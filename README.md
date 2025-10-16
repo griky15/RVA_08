@@ -40,7 +40,8 @@ Unity 6.2 project for Virtual and Augmented Reality Course - MEIC with **Vuforia
         `com.ptc.vuforia.engine-11.4.4.tgz`.  
      5. Wait for Unity to import the package — it should now appear as **Vuforia Engine 11.4.4** in the Package Manager.
 6. **Finally**  
-   - You will see a blank scene on your Unity. It's normal. Go to File → Open Scene and navigate to \RVA_08-master\Assets\Scenes\SolarSystem.unity. Choose the file.
+   - You will see a blank scene on your Unity. It's normal. Go to File → Open Scene
+   - Navigate to \RVA_08-master\Assets\Scenes\SolarSystem.unity. Choose the file.
 5. **Use markers**  
    - Project includes Sun and Earth image markers.  
    - Print markers or use webcam to view AR. 
@@ -54,7 +55,8 @@ Unity 6.2 project for Virtual and Augmented Reality Course - MEIC with **Vuforia
 ## Notes
 
 - Vuforia package is **not in GitHub** due to file size.  
-- Install manually via Unity as described above.  
+- Install manually via Unity as described above.
+- Scene file must be manually selected as mentioned above.
 
 ---
 
