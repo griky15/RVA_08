@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "arunityx.sln"
+    "dotnet.defaultSolution": "RVA_08.slnx"
 }
