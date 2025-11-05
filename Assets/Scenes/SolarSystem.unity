@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SondaMovement
   moveSpeed: 1.2
+  rotationSpeed: 180
 --- !u!135 &88030448
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -205,6 +206,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &88030450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88030443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc53eea87c323284091a724049e68f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceshipPIPCamera
+  cameraOffsetX: 0
+  cameraOffsetY: 0
+  cameraOffsetZ: 1
+  cameraFOV: 70
+  toggleKey: 36
+  startWithSpaceshipCamera: 0
 --- !u!1001 &132793455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -289,6 +308,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 88030448}
+    - targetCorrespondingSourceObject: {fileID: 100004, guid: afa34a8748c82294d8c76c0493fcdd59,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 88030450}
   m_SourcePrefab: {fileID: 100100000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
 --- !u!1 &134067420
 GameObject:
