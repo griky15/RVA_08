@@ -8,3 +8,4 @@
 *.aar filter=lfs diff=lfs merge=lfs -text
 **/ARX.bundle/Contents/MacOS/ARX filter=lfs diff=lfs merge=lfs -text
 Packages/com.ptc.vuforia.engine-11.4.4.tgz filter=lfs diff=lfs merge=lfs -text
+*.tgz filter=lfs diff=lfs merge=lfs -text

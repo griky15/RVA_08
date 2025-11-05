@@ -66,4 +66,13 @@ public class PlanetInfoCompleto : MonoBehaviour
         
         Debug.Log($"✅ Painel aberto para {nomePlaneta}!");
     }
+
+    public void EsconderInformacoes()
+    {
+        if (painelInfo != null)
+        {
+            painelInfo.SetActive(false);
+            Debug.Log($"✅ Painel fechado para {nomePlaneta}!");
+        }
+    }
 }

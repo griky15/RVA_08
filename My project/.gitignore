@@ -1,0 +1,19 @@
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# Ficheiros do Visual Studio e Rider
+.vs/
+.vscode/
+*.sln
+*.csproj
+*.userprefs
+*.suo
+
+# Ficheiros de OS
+.DS_Store
+Thumbs.db
