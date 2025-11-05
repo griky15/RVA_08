@@ -1,16 +1,20 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // 1. IMPORTANTE: Adicionar esta linha
+using UnityEngine.InputSystem;
 
 public class SondaMovement : MonoBehaviour
 {
     [Header("Configurações")]
     public float moveSpeed = 1.5f;
+    public float rotationSpeed = 180f; // Velocidade da rotação em graus/segundo
 
     private Camera arCamera;
+    private bool isRotating180 = false;
+    private Quaternion targetRotation;
+    private Quaternion startRotation;
+    private float rotationProgress = 0f;
 
     void Start()
     {
-        // Encontra a câmara principal da cena (normalmente a AR Camera)
         arCamera = Camera.main;
 
         if (arCamera == null)
@@ -22,40 +26,118 @@ public class SondaMovement : MonoBehaviour
 
     void Update()
     {
-        // 2. Verifica se a câmara existe E se um teclado está presente
-        if (arCamera == null || Keyboard.current == null) return; 
+        if (arCamera == null || Keyboard.current == null) return;
 
-        // Obtém a orientação da câmara
-        Transform camTransform = arCamera.transform;
+        SpaceshipPIPCamera spaceshipCameraScript = GetComponent<SpaceshipPIPCamera>();
+        bool isSpaceshipCameraActive = spaceshipCameraScript != null && spaceshipCameraScript.IsSpaceshipCameraActive();
 
-        // Calcula a direção do movimento baseada nos inputs e na direção da câmara
         Vector3 moveDirection = Vector3.zero;
 
-        // 3. Substituímos "Input.GetKey" por "Keyboard.current.[tecla].IsPressed()"
+        if (isSpaceshipCameraActive)
+        {
+            // Verifica se pressionou Z para dar a volta de 180°
+            if (Keyboard.current.zKey.wasPressedThisFrame && !isRotating180)
+            {
+                StartRotation180();
+            }
 
-        // Cima / Baixo (relativo à câmara)
-        if (Keyboard.current.wKey.IsPressed())
-            moveDirection += camTransform.up;
-        if (Keyboard.current.sKey.IsPressed())
-            moveDirection -= camTransform.up;
+            // Executa a rotação de 180° se estiver ativa
+            if (isRotating180)
+            {
+                PerformRotation180();
+                // Não permite movimento enquanto está a rodar
+                return;
+            }
 
-        // Esquerda / Direita (relativo à câmara)
-        if (Keyboard.current.aKey.IsPressed())
-            moveDirection -= camTransform.right;
-        if (Keyboard.current.dKey.IsPressed())
-            moveDirection += camTransform.right;
+            // Controlos quando a câmara da nave está ativa (relativo à nave)
+            // W - Frente (relativo à nave)
+            if (Keyboard.current.wKey.IsPressed())
+                moveDirection += transform.forward;
+            
+            // S - Trás (relativo à nave)
+            if (Keyboard.current.sKey.IsPressed())
+                moveDirection -= transform.forward;
+            
+            // A - Esquerda (relativo à nave)
+            if (Keyboard.current.aKey.IsPressed())
+                moveDirection -= transform.right;
+            
+            // D - Direita (relativo à nave)
+            if (Keyboard.current.dKey.IsPressed())
+                moveDirection += transform.right;
+            
+            // Normaliza o vetor para que o movimento diagonal não seja mais rápido
+            Vector3 movement = moveDirection.normalized * moveSpeed * Time.deltaTime;
 
-        // Frente / Trás (relativo à câmara)
-        if (Keyboard.current.eKey.IsPressed()) // E para a frente
-            moveDirection += camTransform.forward;
-        if (Keyboard.current.qKey.IsPressed()) // Q para trás
-            moveDirection -= camTransform.forward;
+            // Aplica o movimento no espaço do "Mundo" (World Space)
+            transform.Translate(movement, Space.World);
+            
+            // 1 - Subir (relativo à nave - eixo UP da nave)
+            if (Keyboard.current.digit1Key.IsPressed())
+            {
+                transform.position += transform.up * moveSpeed * Time.deltaTime;
+            }
+            // 2 - Descer (relativo à nave - eixo DOWN da nave)
+            if (Keyboard.current.digit2Key.IsPressed())
+            {
+                transform.position -= transform.up * moveSpeed * Time.deltaTime;
+            }
+        }
+        else
+        {
+            // Controlos originais quando a câmara AR está ativa (relativo à câmara AR)
+            Transform camTransform = arCamera.transform;
 
-        // Normaliza o vetor para que o movimento diagonal não seja mais rápido
-        // E aplica a velocidade e o Time.deltaTime
-        Vector3 movement = moveDirection.normalized * moveSpeed * Time.deltaTime;
+            // Cima / Baixo (relativo à câmara)
+            if (Keyboard.current.wKey.IsPressed())
+                moveDirection += camTransform.up;
+            if (Keyboard.current.sKey.IsPressed())
+                moveDirection -= camTransform.up;
 
-        // Aplica o movimento no espaço do "Mundo" (World Space)
-        transform.Translate(movement, Space.World);
+            // Esquerda / Direita (relativo à câmara)
+            if (Keyboard.current.aKey.IsPressed())
+                moveDirection -= camTransform.right;
+            if (Keyboard.current.dKey.IsPressed())
+                moveDirection += camTransform.right;
+
+            // Frente / Trás (relativo à câmara)
+            if (Keyboard.current.eKey.IsPressed())
+                moveDirection += camTransform.forward;
+            if (Keyboard.current.qKey.IsPressed())
+                moveDirection -= camTransform.forward;
+
+            Vector3 movement = moveDirection.normalized * moveSpeed * Time.deltaTime;
+            transform.Translate(movement, Space.World);
+        }
+    }
+
+    void StartRotation180()
+    {
+        isRotating180 = true;
+        startRotation = transform.rotation;
+        // Roda 180° no eixo Y (eixo vertical global)
+        targetRotation = transform.rotation * Quaternion.Euler(0f, 180f, 0f);
+        rotationProgress = 0f;
+        Debug.Log("SondaMovement: Iniciando rotação de 180°");
+    }
+
+    void PerformRotation180()
+    {
+        // Incrementa o progresso da rotação
+        rotationProgress += (rotationSpeed / 180f) * Time.deltaTime;
+
+        if (rotationProgress >= 1f)
+        {
+            // Rotação completa
+            transform.rotation = targetRotation;
+            isRotating180 = false;
+            rotationProgress = 1f;
+            Debug.Log("SondaMovement: Rotação de 180° concluída");
+        }
+        else
+        {
+            // Interpola suavemente entre a rotação inicial e final
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, rotationProgress);
+        }
     }
 }
