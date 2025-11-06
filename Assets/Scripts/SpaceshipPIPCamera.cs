@@ -6,7 +6,7 @@ public class SpaceshipPIPCamera : MonoBehaviour
 {
     [Header("Configurações da Câmara da Nave")]
     [Tooltip("Offset da câmara na direção X (esquerda/direita)")]
-    public float cameraOffsetX = 0f;
+    public float cameraOffsetX = 0.5f;
     
     [Tooltip("Offset da câmara na direção Y (cima/baixo)")]
     public float cameraOffsetY = 0f;
@@ -17,6 +17,10 @@ public class SpaceshipPIPCamera : MonoBehaviour
     [Tooltip("Field of View da câmara da nave")]
     [Range(30f, 120f)]
     public float cameraFOV = 70f;
+
+    [Header("Configurações do Skybox da Nave")]
+    [Tooltip("Material do Skybox (céu estrelado) a usar na câmara da nave. Se vazio, usa cor sólida.")]
+    public Material spaceshipSkyboxMaterial;
     
     [Header("Configurações de Troca de Câmara")]
     [Tooltip("Tecla para alternar entre câmara AR e câmara da nave (padrão: V)")]
@@ -32,19 +36,15 @@ public class SpaceshipPIPCamera : MonoBehaviour
 
     void Start()
     {
-        // Guarda referência à câmara AR (MainCamera)
         arCamera = Camera.main;
-        
         if (arCamera == null)
         {
             Debug.LogError("SpaceshipPIPCamera: Não foi encontrada a câmara principal (MainCamera)!");
             return;
         }
 
-        // Cria a câmara da nave
         CreateSpaceshipCamera();
         
-        // Configura o estado inicial
         if (startWithSpaceshipCamera)
         {
             SwitchToSpaceshipCamera();
@@ -53,36 +53,39 @@ public class SpaceshipPIPCamera : MonoBehaviour
         {
             SwitchToARCamera();
         }
-        
-        Debug.Log($"SpaceshipPIPCamera: Iniciado. Câmara inicial: {(isSpaceshipCameraActive ? "Nave" : "AR")}");
-        Debug.Log($"SpaceshipPIPCamera: Pressiona '{toggleKey}' para alternar entre câmaras.");
     }
 
     void CreateSpaceshipCamera()
     {
-        // Cria um GameObject para a câmara da nave
         spaceshipCameraObject = new GameObject("SpaceshipCamera");
-        
-        // Define como filho da nave para seguir o movimento
         spaceshipCameraObject.transform.SetParent(transform);
-        
-        // Posiciona a câmara no nariz da nave usando coordenadas locais
-        // Z positivo = frente da nave
         spaceshipCameraObject.transform.localPosition = new Vector3(cameraOffsetX, cameraOffsetY, cameraOffsetZ);
-        
-        // A câmara olha para a frente (direção da nave)
         spaceshipCameraObject.transform.localRotation = Quaternion.identity;
         
-        // Adiciona o componente Camera
         spaceshipCamera = spaceshipCameraObject.AddComponent<Camera>();
         spaceshipCamera.fieldOfView = cameraFOV;
-        spaceshipCamera.depth = 0; // Mesma profundidade que a câmara principal
-        spaceshipCamera.clearFlags = CameraClearFlags.SolidColor;
-        spaceshipCamera.backgroundColor = Color.black;
-        spaceshipCamera.nearClipPlane = 0.01f;
+        spaceshipCamera.depth = 0;
+        spaceshipCamera.nearClipPlane = 0.001f; // Reduzido para evitar cortar objetos próximos
         spaceshipCamera.farClipPlane = 2000f;
 
-        // Copia o cullingMask da câmara AR (exclui UI - Layer 5)
+        // --- CONFIGURAÇÃO DO SKYBOX ---
+        if (spaceshipSkyboxMaterial != null)
+        {
+            // Se temos material, configuramos a câmara para usar Skybox
+            spaceshipCamera.clearFlags = CameraClearFlags.Skybox;
+            
+            // Adiciona o componente Skybox à câmara e atribui o material
+            Skybox camSkybox = spaceshipCameraObject.AddComponent<Skybox>();
+            camSkybox.material = spaceshipSkyboxMaterial;
+        }
+        else
+        {
+            // Se não temos material, usamos a cor sólida azul escuro como fallback
+            spaceshipCamera.clearFlags = CameraClearFlags.SolidColor;
+            spaceshipCamera.backgroundColor = new Color(0.02f, 0.02f, 0.1f, 1f);
+        }
+        // ------------------------------
+
         if (arCamera != null)
         {
             int uiLayer = 5;
@@ -93,10 +96,8 @@ public class SpaceshipPIPCamera : MonoBehaviour
             spaceshipCamera.cullingMask = ~0 & ~(1 << 5);
         }
         
-        // Inicialmente desativada (será ativada quando trocarmos)
         spaceshipCamera.enabled = false;
 
-        // Configuração específica do URP
         var urpData = spaceshipCameraObject.GetComponent<UniversalAdditionalCameraData>();
         if (urpData == null)
         {
@@ -105,29 +106,18 @@ public class SpaceshipPIPCamera : MonoBehaviour
         urpData.renderPostProcessing = false;
         urpData.requiresDepthTexture = false;
         urpData.requiresColorTexture = false;
-        
-        Debug.Log("SpaceshipPIPCamera: Câmara da nave criada no nariz.");
-        Debug.Log($"SpaceshipPIPCamera: Posição local da câmara: ({cameraOffsetX}, {cameraOffsetY}, {cameraOffsetZ})");
     }
     
     void SwitchToSpaceshipCamera()
     {
         if (spaceshipCamera != null && arCamera != null)
         {
-            // Desativa a câmara AR
             arCamera.enabled = false;
-            
-            // Ativa a câmara da nave
             spaceshipCamera.enabled = true;
             
-            // Remove o AudioListener da câmara AR para evitar conflitos
             AudioListener arListener = arCamera.GetComponent<AudioListener>();
-            if (arListener != null)
-            {
-                arListener.enabled = false;
-            }
+            if (arListener != null) arListener.enabled = false;
             
-            // Adiciona AudioListener à câmara da nave se não existir
             AudioListener spaceshipListener = spaceshipCamera.GetComponent<AudioListener>();
             if (spaceshipListener == null)
             {
@@ -147,25 +137,14 @@ public class SpaceshipPIPCamera : MonoBehaviour
     {
         if (spaceshipCamera != null && arCamera != null)
         {
-            // Desativa a câmara da nave
             spaceshipCamera.enabled = false;
-            
-            // Ativa a câmara AR
             arCamera.enabled = true;
             
-            // Remove o AudioListener da câmara da nave
             AudioListener spaceshipListener = spaceshipCamera.GetComponent<AudioListener>();
-            if (spaceshipListener != null)
-            {
-                spaceshipListener.enabled = false;
-            }
+            if (spaceshipListener != null) spaceshipListener.enabled = false;
             
-            // Reativa o AudioListener da câmara AR
             AudioListener arListener = arCamera.GetComponent<AudioListener>();
-            if (arListener != null)
-            {
-                arListener.enabled = true;
-            }
+            if (arListener != null) arListener.enabled = true;
             
             isSpaceshipCameraActive = false;
             Debug.Log("SpaceshipPIPCamera: Trocado para câmara AR.");
@@ -186,7 +165,6 @@ public class SpaceshipPIPCamera : MonoBehaviour
 
     void Update()
     {
-        // Verifica se a tecla de toggle foi pressionada
         if (Keyboard.current != null && Keyboard.current[toggleKey].wasPressedThisFrame)
         {
             ToggleCamera();
@@ -195,40 +173,22 @@ public class SpaceshipPIPCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        // Garante que a câmara sempre está posicionada e alinhada com a nave
         if (spaceshipCameraObject != null && transform != null)
         {
-            // Mantém a posição local relativa à nave
             spaceshipCameraObject.transform.localPosition = new Vector3(cameraOffsetX, cameraOffsetY, cameraOffsetZ);
-            
-            // Mantém a rotação alinhada com a nave (olha para a frente)
             spaceshipCameraObject.transform.localRotation = Quaternion.identity;
         }
     }
 
     void OnDestroy()
     {
-        // Se a câmara da nave estiver ativa, volta para a AR antes de destruir
         if (isSpaceshipCameraActive && arCamera != null)
         {
             SwitchToARCamera();
         }
     }
     
-    // Métodos públicos para controlar a câmara (opcional)
-    public void EnableSpaceshipCamera()
-    {
-        SwitchToSpaceshipCamera();
-    }
-    
-    public void EnableARCamera()
-    {
-        SwitchToARCamera();
-    }
-    
-    public bool IsSpaceshipCameraActive()
-    {
-        return isSpaceshipCameraActive;
-    }
+    public void EnableSpaceshipCamera() => SwitchToSpaceshipCamera();
+    public void EnableARCamera() => SwitchToARCamera();
+    public bool IsSpaceshipCameraActive() => isSpaceshipCameraActive;
 }
-

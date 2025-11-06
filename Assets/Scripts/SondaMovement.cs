@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class SondaMovement : MonoBehaviour
 {
     [Header("Configurações")]
-    public float moveSpeed = 1.5f;
+    public float moveSpeed = 0.8f;
     public float rotationSpeed = 180f; // Velocidade da rotação em graus/segundo
 
     private Camera arCamera;

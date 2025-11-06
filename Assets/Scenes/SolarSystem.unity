@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fa0218886220242b717a99994b7170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SondaMovement
-  moveSpeed: 1.2
+  moveSpeed: 0.8
   rotationSpeed: 180
 --- !u!135 &88030448
 SphereCollider:
@@ -221,7 +221,9 @@ MonoBehaviour:
   cameraOffsetX: 0
   cameraOffsetY: 0
   cameraOffsetZ: 1
-  cameraFOV: 70
+  cameraFOV: 80
+  spaceshipSkyboxMaterial: {fileID: 2100000, guid: bee7a99664e862143b49c3ba5e67eb1d,
+    type: 2}
   toggleKey: 36
   startWithSpaceshipCamera: 0
 --- !u!1001 &132793455
@@ -235,6 +237,46 @@ PrefabInstance:
     - target: {fileID: 100004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_Name
       value: Spaceship
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7047468
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5497755
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.057724137
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.44468746
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -55.715
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 46.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_LocalScale.x
@@ -250,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_LocalPosition.y
@@ -262,11 +304,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_LocalRotation.y
@@ -278,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: afa34a8748c82294d8c76c0493fcdd59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -502,10 +544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea97760af103c49b672b500d8a6a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetOrbit
-  sun: {fileID: 1228295987}
-  sunMarker: {fileID: 822156107}
-  orbitSpeed: 5
-  rotationSpeed: 15
   tiltAngle: 98
 --- !u!114 &173973149
 MonoBehaviour:
@@ -576,10 +614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea97760af103c49b672b500d8a6a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetOrbit
-  sun: {fileID: 1228295987}
-  sunMarker: {fileID: 822156107}
-  orbitSpeed: 20
-  rotationSpeed: 22
   tiltAngle: 25
 --- !u!114 &222225826
 MonoBehaviour:
@@ -649,10 +683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea97760af103c49b672b500d8a6a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetOrbit
-  sun: {fileID: 1228295987}
-  sunMarker: {fileID: 822156107}
-  orbitSpeed: 20
-  rotationSpeed: 50
   tiltAngle: 0
 --- !u!114 &234501622
 MonoBehaviour:
@@ -717,19 +747,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.012
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.012
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.012
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.08
+      value: 0.145
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalPosition.y
@@ -810,10 +840,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea97760af103c49b672b500d8a6a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetOrbit
-  sun: {fileID: 1228295987}
-  sunMarker: {fileID: 822156107}
-  orbitSpeed: 30
-  rotationSpeed: -8
   tiltAngle: 177
 --- !u!114 &316150854
 MonoBehaviour:
@@ -883,10 +909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea97760af103c49b672b500d8a6a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetOrbit
-  sun: {fileID: 1228295987}
-  sunMarker: {fileID: 822156107}
-  orbitSpeed: 3
-  rotationSpeed: 18
   tiltAngle: 28
 --- !u!114 &453494440
 MonoBehaviour:
@@ -1093,10 +1115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea97760af103c49b672b500d8a6a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetOrbit
-  sun: {fileID: 1228295987}
-  sunMarker: {fileID: 822156107}
-  orbitSpeed: 40
-  rotationSpeed: 10
   tiltAngle: 0.1
 --- !u!114 &486990213
 MonoBehaviour:
@@ -1166,10 +1184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea97760af103c49b672b500d8a6a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetOrbit
-  sun: {fileID: 1228295987}
-  sunMarker: {fileID: 822156107}
-  orbitSpeed: 10
-  rotationSpeed: 40
   tiltAngle: 3
 --- !u!114 &503543845
 MonoBehaviour:
@@ -1249,19 +1263,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.013
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.013
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.013
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1344,7 +1358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4431810912100570, guid: 5d1442ad8c11442988e0eca5d8af73f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.275
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 4431810912100570, guid: 5d1442ad8c11442988e0eca5d8af73f0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1476,7 +1490,7 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: 8a9a760f95896c34689febc965510927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetBehaviour
-  PreviewVisible: 1
+  PreviewVisible: 0
   RuntimeOcclusion: 0
   RuntimeCollider: 0
   mTrackableName: earth
@@ -1499,7 +1513,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769867305}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1513,7 +1527,7 @@ Transform:
   - {fileID: 453494438}
   - {fileID: 234501620}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &769867309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1545,6 +1559,7 @@ GameObject:
   - component: {fileID: 822156107}
   - component: {fileID: 822156106}
   - component: {fileID: 822156109}
+  - component: {fileID: 822156110}
   m_Layer: 0
   m_Name: ImageTarget_Sun
   m_TagString: Untagged
@@ -1608,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: 8a9a760f95896c34689febc965510927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetBehaviour
-  PreviewVisible: 1
+  PreviewVisible: 0
   RuntimeOcclusion: 0
   RuntimeCollider: 0
   mTrackableName: sun
@@ -1622,7 +1637,7 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 822156109}
+  mPreview: {fileID: 822156110}
 --- !u!4 &822156108
 Transform:
   m_ObjectHideFlags: 0
@@ -1638,9 +1653,31 @@ Transform:
   m_Children:
   - {fileID: 687257695}
   - {fileID: 88030444}
+  - {fileID: 1500053199}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &822156109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822156105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8af4b5201099f942a2f07d8e25c4b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetProgressionManager
+  planetsInOrder:
+  - {fileID: 486990210}
+  - {fileID: 316150851}
+  - {fileID: 234501619}
+  - {fileID: 222225823}
+  - {fileID: 503543842}
+  - {fileID: 1653076494}
+  - {fileID: 173973146}
+  - {fileID: 453494437}
+--- !u!114 &822156110
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1685,7 +1722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.125
+      value: 0.23
       objectReference: {fileID: 0}
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1885,7 +1922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4799057029891002, guid: c91342f6e3afc48fd958056404ead345, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.225
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 4799057029891002, guid: c91342f6e3afc48fd958056404ead345, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2021,12 +2058,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126856675}
   m_CullTransparentMesh: 1
---- !u!1 &1228295987 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1066320961419670, guid: ec1861462fc1b46f1a1c1c3c0f1f7f15,
-    type: 3}
-  m_PrefabInstance: {fileID: 1042046243}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1286133038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2045,19 +2076,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2263,8 +2294,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.3
-  m_Range: 1
+  m_Intensity: 0.4
+  m_Range: 150
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2302,7 +2333,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -2330,7 +2361,7 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 822156108}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1500053200
 MonoBehaviour:
@@ -2369,10 +2400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea97760af103c49b672b500d8a6a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetOrbit
-  sun: {fileID: 1228295987}
-  sunMarker: {fileID: 822156107}
-  orbitSpeed: 8
-  rotationSpeed: 35
   tiltAngle: 27
 --- !u!114 &1653076497
 MonoBehaviour:
@@ -2709,19 +2736,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.015
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.015
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.015
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.035
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2804,7 +2831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.175
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3253,7 +3280,6 @@ SceneRoots:
   - {fileID: 134067426}
   - {fileID: 769867308}
   - {fileID: 822156108}
-  - {fileID: 1500053199}
   - {fileID: 2142340125}
   - {fileID: 1361592464}
   - {fileID: 1027527447}

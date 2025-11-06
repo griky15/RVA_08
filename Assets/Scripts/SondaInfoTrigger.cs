@@ -1,66 +1,93 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // 1. PRECISAMOS DESTA LINHA para ler o teclado
+using UnityEngine.InputSystem;
+using System.Collections;
 
 public class SondaInfoTrigger : MonoBehaviour
 {
-    // Guarda uma referência ao último painel que abrimos
     private PlanetInfoCompleto painelAbertoAtual = null;
+    
+    // Variável nova para guardar o planeta que acabámos de explorar,
+    // mas que ainda estamos a ler a informação.
+    private PlanetInfoCompleto planetaPendenteParaAvancar = null;
 
-    /// <summary>
-    /// Chamado automaticamente pela Unity quando este Trigger (Sonda)
-    /// entra em contacto com outro Collider (Planeta).
-    /// (Esta função fica igual)
-    /// </summary>
+    private PlanetProgressionManager progressionManager;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+    private bool isResetting = false;
+
+    void Start()
+    {
+        startPosition = transform.localPosition;
+        startRotation = transform.localRotation;
+        progressionManager = FindFirstObjectByType<PlanetProgressionManager>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        // Tenta obter o script PlanetInfoCompleto do objeto em que tocámos
+        if (isResetting) return;
+
         PlanetInfoCompleto planetInfo = other.GetComponent<PlanetInfoCompleto>();
 
-        // Verifica se é mesmo um planeta (se tem o script)
         if (planetInfo != null)
         {
-            // Se já tínhamos um painel de outro planeta aberto, fecha-o primeiro
-            if (painelAbertoAtual != null && painelAbertoAtual != planetInfo)
+            // 1. Se tocar no mesmo planeta duas vezes seguidas sem fechar, ignora
+            if (painelAbertoAtual == planetInfo) return;
+
+            // 2. Abre o painel imediatamente
+            if (painelAbertoAtual != null)
             {
                 painelAbertoAtual.EsconderInformacoes();
             }
-
-            // Agora, mostra as informações do novo planeta
             planetInfo.MostrarInformacoes();
-            
-            // Guarda a referência deste planeta como o "atualmente aberto"
             painelAbertoAtual = planetInfo;
             
-            Debug.Log($"[SondaTrigger] Entrou na área de: {planetInfo.nomePlaneta}");
+            // 3. Guarda este planeta como "pendente" para avançar o progresso SÓ quando fecharmos o painel
+            planetaPendenteParaAvancar = planetInfo;
+
+            Debug.Log($"[Sonda] Contacto com {planetInfo.nomePlaneta}. À espera que o jogador leia e feche com 'X'.");
+
+            // 4. Inicia apenas o reset da posição da sonda
+            StartCoroutine(ResetSondaDelay(0.5f));
         }
     }
 
-    /// <summary>
-    /// 2. A FUNÇÃO 'OnTriggerExit' FOI COMPLETAMENTE REMOVIDA.
-    /// O painel já não fecha ao afastar a sonda.
-    /// </summary>
-    // void OnTriggerExit(Collider other) { ... } // APAGADO!
+    IEnumerator ResetSondaDelay(float delay)
+    {
+        isResetting = true;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true; // Congela a física
 
+        yield return new WaitForSeconds(delay);
 
-    /// <summary>
-    /// 3. ADICIONÁMOS A FUNÇÃO 'Update'
-    /// Chamado a cada frame.
-    /// </summary>
+        // Retorna à base
+        transform.localPosition = startPosition;
+        transform.localRotation = startRotation;
+        
+        if (rb != null) rb.isKinematic = false; // Descongela
+        isResetting = false;
+    }
+
     void Update()
     {
-        // Verifica se um teclado está ligado E se a tecla 'X' foi premida neste frame
+        // Verifica se a tecla 'X' foi premida
         if (Keyboard.current != null && Keyboard.current.xKey.wasPressedThisFrame)
         {
-            // Verifica se temos um painel guardado na memória (ou seja, se um painel está aberto)
+            // 1. Fecha o painel se estiver algum aberto
             if (painelAbertoAtual != null)
             {
-                Debug.Log($"[SondaTrigger] Fechando {painelAbertoAtual.nomePlaneta} via tecla 'X'.");
-                
-                // Manda fechar esse painel
+                Debug.Log($"[Sonda] Fechando painel de {painelAbertoAtual.nomePlaneta} com 'X'.");
                 painelAbertoAtual.EsconderInformacoes();
-                
-                // Limpa a memória. Isto é MUITO importante para poder abrir o próximo.
                 painelAbertoAtual = null;
+            }
+
+            // 2. AGORA SIM, se tínhamos um planeta pendente, avançamos para o próximo
+            if (planetaPendenteParaAvancar != null && progressionManager != null)
+            {
+                Debug.Log("[Sonda] 'X' pressionado. Avançando para o próximo planeta.");
+                progressionManager.PlanetExplored(planetaPendenteParaAvancar.gameObject);
+                
+                // Limpa o pendente para não avançar duas vezes
+                planetaPendenteParaAvancar = null;
             }
         }
     }
