@@ -65,26 +65,21 @@ public class SpaceshipPIPCamera : MonoBehaviour
         spaceshipCamera = spaceshipCameraObject.AddComponent<Camera>();
         spaceshipCamera.fieldOfView = cameraFOV;
         spaceshipCamera.depth = 0;
-        spaceshipCamera.nearClipPlane = 0.05f; // Reduzido para evitar cortar objetos próximos
+        spaceshipCamera.nearClipPlane = 0.05f;
         spaceshipCamera.farClipPlane = 2000f;
 
-        // --- CONFIGURAÇÃO DO SKYBOX ---
         if (spaceshipSkyboxMaterial != null)
         {
-            // Se temos material, configuramos a câmara para usar Skybox
             spaceshipCamera.clearFlags = CameraClearFlags.Skybox;
             
-            // Adiciona o componente Skybox à câmara e atribui o material
             Skybox camSkybox = spaceshipCameraObject.AddComponent<Skybox>();
             camSkybox.material = spaceshipSkyboxMaterial;
         }
         else
         {
-            // Se não temos material, usamos a cor sólida azul escuro como fallback
             spaceshipCamera.clearFlags = CameraClearFlags.SolidColor;
             spaceshipCamera.backgroundColor = new Color(0.02f, 0.02f, 0.1f, 1f);
         }
-        // ------------------------------
 
         if (arCamera != null)
         {

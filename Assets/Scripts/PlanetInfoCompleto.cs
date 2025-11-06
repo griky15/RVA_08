@@ -12,7 +12,7 @@ public class PlanetInfoCompleto : MonoBehaviour
     public int numeroLuas;
     public string curiosidade;
     
-    [Header("Referências UI - ARRASTE AQUI")]
+    [Header("Referências UI")]
     public GameObject painelInfo;
     public TextMeshProUGUI textoNome;
     public TextMeshProUGUI textoDescricao;
@@ -20,7 +20,6 @@ public class PlanetInfoCompleto : MonoBehaviour
     
     void Start()
     {
-        // Garante que tem collider
         if (GetComponent<Collider>() == null)
         {
             gameObject.AddComponent<SphereCollider>();
