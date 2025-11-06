@@ -12,7 +12,7 @@ public class PlanetInfoCompleto : MonoBehaviour
     public int numeroLuas;
     public string curiosidade;
     
-    [Header("Referências UI - ARRASTE AQUI")]
+    [Header("Referências UI")]
     public GameObject painelInfo;
     public TextMeshProUGUI textoNome;
     public TextMeshProUGUI textoDescricao;
