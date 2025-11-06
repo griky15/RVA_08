@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fa0218886220242b717a99994b7170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SondaMovement
-  moveSpeed: 0.8
+  moveSpeed: 0.3
   rotationSpeed: 180
 --- !u!135 &88030448
 SphereCollider:
@@ -219,9 +219,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipPIPCamera
   cameraOffsetX: 0
-  cameraOffsetY: 0
-  cameraOffsetZ: 1
-  cameraFOV: 80
+  cameraOffsetY: 2
+  cameraOffsetZ: 2
+  cameraFOV: 99
   spaceshipSkyboxMaterial: {fileID: 2100000, guid: bee7a99664e862143b49c3ba5e67eb1d,
     type: 2}
   toggleKey: 36
@@ -2375,7 +2375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ad8fe3592402044866fd6a0bb33f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightFollow
-  sunTransform: {fileID: 687257695}
 --- !u!1 &1653076494 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1377197793697218, guid: b4201d402613a4464b35c805dafcca62,

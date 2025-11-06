@@ -6,17 +6,17 @@ public class SpaceshipPIPCamera : MonoBehaviour
 {
     [Header("Configurações da Câmara da Nave")]
     [Tooltip("Offset da câmara na direção X (esquerda/direita)")]
-    public float cameraOffsetX = 0.5f;
+    public float cameraOffsetX = 0f;
     
     [Tooltip("Offset da câmara na direção Y (cima/baixo)")]
-    public float cameraOffsetY = 0f;
+    public float cameraOffsetY = 0.2f;
     
     [Tooltip("Distância da câmara ao nariz da nave na direção Z (frente)")]
-    public float cameraOffsetZ = 1f;
+    public float cameraOffsetZ = 2f;
     
     [Tooltip("Field of View da câmara da nave")]
     [Range(30f, 120f)]
-    public float cameraFOV = 70f;
+    public float cameraFOV = 90f;
 
     [Header("Configurações do Skybox da Nave")]
     [Tooltip("Material do Skybox (céu estrelado) a usar na câmara da nave. Se vazio, usa cor sólida.")]
@@ -65,7 +65,7 @@ public class SpaceshipPIPCamera : MonoBehaviour
         spaceshipCamera = spaceshipCameraObject.AddComponent<Camera>();
         spaceshipCamera.fieldOfView = cameraFOV;
         spaceshipCamera.depth = 0;
-        spaceshipCamera.nearClipPlane = 0.001f; // Reduzido para evitar cortar objetos próximos
+        spaceshipCamera.nearClipPlane = 0.05f; // Reduzido para evitar cortar objetos próximos
         spaceshipCamera.farClipPlane = 2000f;
 
         // --- CONFIGURAÇÃO DO SKYBOX ---

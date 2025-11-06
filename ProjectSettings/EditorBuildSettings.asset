@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Packages/org.artoolkitx.artoolkitx-unity/Samples/MultimarkerSheetSample/MultimarkerSheetScene.unity
     guid: 240fd65e106ba44b6b794b5cec7c04be
+  - enabled: 1
+    path: Assets/Scenes/SolarSystem.unity
+    guid: b2030955daae24544933b6981127165d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 13c146f12e86cf540bc94186537c1b33,
       type: 2}
